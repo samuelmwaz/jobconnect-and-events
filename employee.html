@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobConnect - Find & Request Your Next Job</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons for aesthetic components -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Custom styles matching the elegant color palette from color pick.jpg */
@@ -38,12 +36,10 @@
 </head>
 <body class="min-h-screen">
 
-    <!-- Global State Management & Header -->
     <header class="bg-white shadow-md">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="#home" class="text-3xl font-bold text-gray-800 tracking-tight">JobConnect</a>
             <nav>
-                <!-- Primary Button: Dark Blue background, Slate Blue hover -->
                 <button id="auth-button" class="btn-primary text-white px-4 py-2 rounded-lg font-semibold transition shadow-md" onclick="handleAuthClick()">
                     Login / Register
                 </button>
@@ -51,41 +47,32 @@
         </div>
     </header>
 
-    <!-- Main Content Container - Pages will be displayed here -->
     <main class="container mx-auto p-4 sm:p-6 lg:p-8">
         <div id="app-container">
-            <!-- Dynamic Content will be injected here -->
-        </div>
+            </div>
     </main>
 
-    <!-- Modal for Login/Register Prompt (Updated for role selection) -->
     <div id="auth-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center p-4 z-50">
         <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm transform transition-all">
             <h3 class="text-2xl font-bold text-gray-900 mb-4">Select Your Role</h3>
             <p class="text-gray-600 mb-6">Choose your account type to continue to the platform.</p>
             <div class="flex flex-col space-y-4">
-                <!-- Primary Button: Job Seeker (Default) -->
                 <button class="w-full btn-primary text-white py-3 rounded-lg font-semibold transition" onclick="mockLogin('seeker')">Log in as Job Seeker</button>
-                <!-- Secondary Button: Employer (New) -->
                 <button class="w-full bg-[#A4B5C4] text-[#071739] py-3 rounded-lg font-semibold hover:bg-[#CDD5DB] transition shadow-md" onclick="mockLogin('employer')">Log in as Employer (TechNova)</button>
                 <button class="w-full bg-gray-200 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-300 transition" onclick="hideModal('auth-modal')">Cancel</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal for Send Request Confirmation -->
     <div id="request-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center p-4 z-50">
         <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md transform transition-all">
             <h3 class="text-2xl font-bold text-gray-900 mb-4">Confirm Job Request</h3>
-            <!-- Link/Accent Color (Tan) for job title highlight -->
             <p class="text-gray-600 mb-4">Your current profile and attached resume will be sent to the hiring company for **<span id="job-title-confirm" class="font-semibold text-[#A68868]"></span>**.</p>
-            <!-- Warning Box: Beige background, Tan border, Dark Blue Text -->
             <div class="bg-[#E3C39D] border-l-4 border-[#A68868] p-3 mb-6 rounded-md">
                 <p class="text-sm text-[#071739]">Ensure your <a href="#dashboard/profile" onclick="hideModal('request-modal'); navigate('dashboard/profile')" class="underline font-medium">Profile/Resume</a> is up-to-date before sending!</p>
             </div>
             <div class="flex justify-end space-x-3">
                 <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-300 transition" onclick="hideModal('request-modal')">Cancel</button>
-                <!-- Secondary Action Button: Slate Blue, no gradient needed here to differentiate from primary -->
                 <button class="bg-[#4B6382] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#071739] transition shadow-md" onclick="sendRequest()">Send Request Now</button>
             </div>
         </div>
@@ -123,6 +110,16 @@
             { id: 106, title: "Mine Safety Officer", company: "Kabwe Copper", location: "Kabwe, Zambia", salary: "ZMW 40k - 50k/mo", type: "Full-Time", description: "Ensure all safety protocols are followed in underground operations.", posted: "1 week ago", industry: "Safety", sector: "Mining" },
             { id: 107, title: "Hydropower Plant Technician", company: "ZESCO", location: "Kariba Dam, Zambia", salary: "ZMW 25k - 35k/mo", type: "Full-Time", description: "Maintain and repair electromechanical equipment at the generation facility.", posted: "2 weeks ago", industry: "Utilities", sector: "Energy" },
             { id: 108, title: "Lodge Manager", company: "Mosi-oa-Tunya Safaris", location: "Livingstone, Zambia", salary: "ZMW 20k - 30k/mo", type: "Full-Time", description: "Oversee daily operations of a luxury safari lodge near Victoria Falls.", posted: "3 days ago", industry: "Hospitality", sector: "Tourism" },
+        ];
+
+        // NEW Mock Vendor Data
+        const mockVendors = [
+            { id: 201, name: "Lusaka Feast Catering", category: "Food & Beverage", location: "Lusaka, Zambia", service: "Full-service corporate and event catering.", contact: "LFC-789", posted: "3 weeks ago" },
+            { id: 202, name: "Zambia Tech Solutions", category: "Technology", location: "Lusaka, Zambia", service: "IT consulting and hardware supply.", contact: "ZTS-112", posted: "1 month ago" },
+            { id: 203, name: "Ndola Safety Gear", category: "Retail", location: "Ndola, Zambia", service: "PPE and industrial safety equipment sales.", contact: "NSG-345", posted: "2 days ago" },
+            { id: 204, name: "Kabwe Building Supplies", category: "Construction", location: "Kabwe, Zambia", service: "Cement, steel, and general building materials.", contact: "KBS-678", posted: "1 day ago" },
+            { id: 205, name: "Copperbelt Events Planners", category: "Events", location: "Kitwe, Zambia", service: "Event management and decor services.", contact: "CEP-009", posted: "1 week ago" },
+            { id: 206, name: "Mazabuka Transport Hub", category: "Transportation", location: "Mazabuka, Zambia", service: "Long-haul logistics and freight services.", contact: "MTH-445", posted: "5 days ago" },
         ];
 
         // Mock User Requests (updates on application - what the JOB SEEKER sees)
@@ -226,21 +223,18 @@
             }
         }
 
-        // 1. HOME PAGE RENDER (No change)
+        // 1. HOME PAGE RENDER (Updated to include Vendor Search)
         function renderHome() {
             document.getElementById('app-container').innerHTML = `
                 <div class="animate-fade-in">
                     <div class="text-center py-16 glass-card rounded-xl shadow-lg mb-8">
-                        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">Find Your Next Career. Connect Directly.</h1>
-                        <p class="text-xl text-gray-600 mb-8">Register to instantly send your profile as a request to hiring companies.</p>
+                        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">Find Your Next Career or Vendor. Connect Directly.</h1>
+                        <p class="text-xl text-gray-600 mb-8">Search for job openings or browse our vetted list of marketplace vendors.</p>
 
-                        <!-- Search Bar - Adjusted to accommodate the new Sector filter -->
-                        <div class="max-w-5xl mx-auto p-4">
+                        <div class="max-w-7xl mx-auto p-4">
                             <div class="flex flex-wrap gap-4 items-center justify-center">
-                                <!-- Input -->
-                                <input type="text" id="keyword-search" placeholder="Job Title, Keyword, or Company" class="flex-1 min-w-[200px] p-4 border border-gray-300 rounded-lg focus:ring-[#A68868] focus:border-[#A68868] shadow-sm">
+                                <input type="text" id="keyword-search" placeholder="Job Title, Keyword, Company, or Vendor Service" class="flex-1 min-w-[200px] p-4 border border-gray-300 rounded-lg focus:ring-[#A68868] focus:border-[#A68868] shadow-sm">
                                 
-                                <!-- Location Dropdown -->
                                 <select id="location-select" class="p-4 border border-gray-300 rounded-lg shadow-sm min-w-[150px]">
                                     <option value="">Any Location</option>
                                     <option value="Remote">Remote</option>
@@ -249,11 +243,13 @@
                                     <option value="Lusaka">Lusaka, Zambia</option> 
                                     <option value="Kabwe">Kabwe, Zambia</option>
                                     <option value="Livingstone">Livingstone, Zambia</option>
+                                    <option value="Ndola">Ndola, Zambia</option>
+                                    <option value="Kitwe">Kitwe, Zambia</option>
+                                    <option value="Mazabuka">Mazabuka, Zambia</option>
                                 </select>
                                 
-                                <!-- NEW Sector Dropdown -->
-                                <select id="sector-select" class="p-4 border border-gray-300 rounded-lg shadow-sm min-w-[150px]">
-                                    <option value="">Any Sector</option>
+                                <select id="job-sector-select" class="p-4 border border-gray-300 rounded-lg shadow-sm min-w-[150px]">
+                                    <option value="">Any Job Sector</option>
                                     <option value="Mining">Mining</option>
                                     <option value="Energy">Energy</option>
                                     <option value="Manufacturing">Manufacturing</option>
@@ -262,39 +258,54 @@
                                     <option value="ICT">ICT</option>
                                 </select>
 
-                                <!-- Primary Button -->
+                                <select id="vendor-category-select" class="p-4 border border-gray-300 rounded-lg shadow-sm min-w-[150px]">
+                                    <option value="">Any Vendor Category</option>
+                                    <option value="Food & Beverage">Food & Beverage (Catering)</option>
+                                    <option value="Retail">Retail</option>
+                                    <option value="Construction">Construction</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Events">Events</option>
+                                    <option value="Services">Services</option>
+                                    <option value="Agriculture">Agriculture</option>
+                                    <option value="Transportation">Transportation</option>
+                                    <option value="Market Vendors">Market Vendors</option>
+                                </select>
+
                                 <button onclick="mockSearch()" class="btn-primary text-white p-4 rounded-lg font-bold shadow-lg transition flex-shrink-0 min-w-[150px] flex items-center justify-center">
                                     <i data-lucide="search" class="w-5 h-5 mr-2"></i> Search
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Value Props -->
                         <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                             <div class="p-4 text-center">
-                                <!-- Tan Accent Color -->
                                 <i data-lucide="rocket" class="w-8 h-8 text-[#A68868] mx-auto mb-3"></i>
                                 <h3 class="font-semibold text-lg text-gray-900">1. Instant Requests</h3>
                                 <p class="text-gray-500 text-sm">Send your profile directly to employers with one click.</p>
                             </div>
                             <div class="p-4 text-center">
-                                <!-- Tan Accent Color -->
                                 <i data-lucide="shield-check" class="w-8 h-8 text-[#A68868] mx-auto mb-3"></i>
                                 <h3 class="font-semibold text-lg text-gray-900">2. Vetted Listings</h3>
-                                <p class="text-gray-500 text-sm">We ensure all hiring companies are verified for quality.</p>
+                                <p class="text-gray-500 text-sm">We ensure all partners (Employers & Vendors) are verified.</p>
                             </div>
                             <div class="p-4 text-center">
-                                <!-- Tan Accent Color -->
                                 <i data-lucide="star" class="w-8 h-8 text-[#A68868] mx-auto mb-3"></i>
                                 <h3 class="font-semibold text-lg text-gray-900">3. Status Tracking</h3>
-                                <p class="text-gray-500 text-sm">Track when your request is viewed and processed in your dashboard.</p>
+                                <p class="text-gray-500 text-sm">Track job requests or manage vendor inquiries easily.</p>
                             </div>
                         </div>
                     </div>
 
-                    <h2 class="text-3xl font-bold text-white mb-6">Featured Job Openings</h2>
-                    <div id="job-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        ${mockJobs.map(job => createJobCard(job)).join('')}
+                    <div id="listings-container">
+                        <h2 class="text-3xl font-bold text-white mb-6">Featured Vendor Partners</h2>
+                        <div id="vendor-list-initial" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                            ${mockVendors.map(vendor => createVendorCard(vendor)).join('')}
+                        </div>
+
+                        <h2 class="text-3xl font-bold text-white mb-6">Featured Job Openings</h2>
+                        <div id="job-list-initial" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${mockJobs.map(job => createJobCard(job)).join('')}
+                        </div>
                     </div>
                 </div>
             `;
@@ -305,61 +316,114 @@
             return `
                 <div class="card glass-card p-6 rounded-xl shadow-md border border-gray-100 cursor-pointer" onclick="navigate('job/${job.id}')">
                     <div class="flex items-center space-x-3 mb-3">
-                        <!-- Tan Accent Color -->
+                        <span class="text-xs font-bold text-white bg-[#A68868] px-2 py-1 rounded-full uppercase tracking-wider">Job</span>
                         <span class="text-lg font-semibold text-[#A68868]">${job.company}</span>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">${job.title}</h3>
                     <div class="text-gray-600 text-sm space-y-1">
                         <p class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2 text-gray-400"></i>${job.location}</p>
                         <p class="flex items-center"><i data-lucide="tag" class="w-4 h-4 mr-2 text-gray-400"></i>${job.salary}</p>
-                        <!-- Added Sector information to the card for visibility -->
                         <p class="inline-block bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full mt-2">${job.type}</p>
                         <p class="inline-block bg-gray-100 text-[#4B6382] text-xs px-2 py-0.5 rounded-full mt-2 ml-1 font-medium">${job.sector}</p>
                     </div>
-                    <!-- Tan Accent Link, Dark Blue Hover -->
                     <a href="#job/${job.id}" class="mt-4 inline-block text-[#A68868] font-medium hover:text-[#071739] transition">View Details &rarr;</a>
                 </div>
             `;
         }
 
+        // NEW function for rendering vendor cards
+        function createVendorCard(vendor) {
+            return `
+                <div class="card glass-card p-6 rounded-xl shadow-md border border-gray-100 cursor-pointer" onclick="alertUser('Viewing Vendor: ${vendor.name}', 'yellow')">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <span class="text-xs font-bold text-white bg-[#071739] px-2 py-1 rounded-full uppercase tracking-wider">Vendor</span>
+                        <span class="text-lg font-semibold text-[#A68868]">${vendor.name}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">${vendor.service}</h3>
+                    <div class="text-gray-600 text-sm space-y-1">
+                        <p class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2 text-gray-400"></i>${vendor.location}</p>
+                        <p class="flex items-center"><i data-lucide="package" class="w-4 h-4 mr-2 text-gray-400"></i>Category: ${vendor.category}</p>
+                        <p class="inline-block bg-gray-100 text-[#4B6382] text-xs px-2 py-0.5 rounded-full mt-2 font-medium">Verified Partner</p>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-[#A68868] font-medium hover:text-[#071739] transition" onclick="event.stopPropagation(); alertUser('Contacting ${vendor.name}', 'yellow')">Contact Vendor &rarr;</a>
+                </div>
+            `;
+        }
+
+        // Updated mockSearch function to handle both jobs and vendors
         function mockSearch() {
             // Placeholder function for searching logic
             const keyword = document.getElementById('keyword-search').value.toLowerCase();
             const location = document.getElementById('location-select').value;
-            const sector = document.getElementById('sector-select').value; // New filter logic
+            const jobSector = document.getElementById('job-sector-select').value;
+            const vendorCategory = document.getElementById('vendor-category-select').value; 
 
-            console.log(`Searching for: ${keyword} in ${location} in sector ${sector}`);
+            console.log(`Searching for: ${keyword} in ${location}. Job Sector: ${jobSector}. Vendor Category: ${vendorCategory}`);
 
+            // --- Job Filtering Logic ---
             let filteredJobs = mockJobs;
-
-            // 1. Filter by Location
+            // 1. Filter Jobs by Location
             if (location) {
                 filteredJobs = filteredJobs.filter(job => job.location.includes(location));
             }
-            
-            // 2. Filter by Sector
-            if (sector) {
-                filteredJobs = filteredJobs.filter(job => job.sector === sector);
+            // 2. Filter Jobs by Job Sector
+            if (jobSector) {
+                filteredJobs = filteredJobs.filter(job => job.sector === jobSector);
             }
-
-            // 3. Filter by Keyword (Title or Company)
+            // 3. Filter Jobs by Keyword (Title or Company)
             if (keyword) {
                 filteredJobs = filteredJobs.filter(job => 
                     job.title.toLowerCase().includes(keyword) || 
                     job.company.toLowerCase().includes(keyword)
                 );
             }
+
+            // --- Vendor Filtering Logic ---
+            let filteredVendors = mockVendors;
+            // 1. Filter Vendors by Location
+            if (location) {
+                filteredVendors = filteredVendors.filter(vendor => vendor.location.includes(location));
+            }
+            // 2. Filter Vendors by Category
+            if (vendorCategory) {
+                filteredVendors = filteredVendors.filter(vendor => vendor.category === vendorCategory);
+            }
+            // 3. Filter Vendors by Keyword (Name or Service)
+            if (keyword) {
+                filteredVendors = filteredVendors.filter(vendor => 
+                    vendor.name.toLowerCase().includes(keyword) || 
+                    vendor.service.toLowerCase().includes(keyword)
+                );
+            }
             
-            // Update the job list display
-            document.getElementById('job-list').innerHTML = `
+            // Generate combined results HTML
+            const resultsHtml = `
                 <div class="md:col-span-2 lg:col-span-3">
-                    <h3 class="text-xl font-semibold mb-4 text-white">Search Results for: "${keyword || 'All Jobs'}" ${location ? `in ${location}` : ''} ${sector ? `in the ${sector} sector` : ''}</h3>
+                    <h3 class="text-xl font-semibold mb-4 text-white">Search Results for: "${keyword || 'All Listings'}" ${location ? `in ${location}` : ''}</h3>
                 </div>
-                ${filteredJobs.map(job => createJobCard(job)).join('')}
-                <div class="md:col-span-2 lg:col-span-3 text-center pt-4">
-                    <p class="text-gray-300">Showing ${filteredJobs.length} of ${mockJobs.length} total results.</p>
+                
+                <div class="md:col-span-2 lg:col-span-3">
+                    <h3 class="text-2xl font-bold text-white mb-4 mt-6">Vendor Listings (${filteredVendors.length})</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${filteredVendors.map(vendor => createVendorCard(vendor)).join('')}
+                    ${filteredVendors.length === 0 ? '<p class="md:col-span-2 lg:col-span-3 text-gray-300">No vendor listings match your criteria.</p>' : ''}
+                </div>
+                
+                <div class="md:col-span-2 lg:col-span-3">
+                    <h3 class="text-2xl font-bold text-white mb-4 mt-6">Job Openings (${filteredJobs.length})</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${filteredJobs.map(job => createJobCard(job)).join('')}
+                    ${filteredJobs.length === 0 ? '<p class="md:col-span-2 lg:col-span-3 text-gray-300">No job openings match your criteria.</p>' : ''}
+                </div>
+                
+                <div class="md:col-span-2 lg:col-span-3 text-center pt-8">
+                    <p class="text-gray-300">Showing ${filteredJobs.length + filteredVendors.length} total results.</p>
                 </div>
             `;
+
+            document.getElementById('listings-container').innerHTML = resultsHtml;
             lucide.createIcons();
         }
 
@@ -374,16 +438,13 @@
 
             document.getElementById('app-container').innerHTML = `
                 <div class="animate-fade-in">
-                    <!-- Tan Accent Link, Dark Blue Hover -->
                     <button onclick="navigate('home')" class="text-[#A68868] hover:text-white font-medium mb-6 flex items-center transition">
                         <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Search
                     </button>
 
                     <div class="glass-card rounded-xl shadow-lg p-6 lg:p-10 grid grid-cols-1 lg:col-span-3 gap-8">
-                        <!-- Left Column: Job Content -->
                         <div class="lg:col-span-2">
                             <h1 class="text-4xl font-extrabold text-gray-900 mb-2">${job.title}</h1>
-                            <!-- Tan Accent Color -->
                             <h2 class="text-2xl font-semibold text-[#A68868] mb-6">${job.company} - ${job.location}</h2>
 
                             <div class="flex flex-wrap gap-4 mb-8 text-sm font-medium">
@@ -412,11 +473,9 @@
                             </div>
                         </div>
 
-                        <!-- Right Column: Action Panel -->
                         <div class="lg:col-span-1">
                             <div class="sticky top-4 bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner">
                                 <p class="text-lg font-semibold text-gray-800 mb-4">${isLoggedIn ? 'Ready to connect?' : 'Login to apply directly.'}</p>
-                                <!-- Primary Button (uses btn-primary gradient) -->
                                 <button id="request-job-btn" class="w-full btn-primary text-white py-3 rounded-lg text-lg font-bold transition shadow-lg" onclick="handleRequestClick('${job.title}')">
                                     <i data-lucide="mail" class="w-5 h-5 inline mr-2"></i> Send Request to Employer
                                 </button>
@@ -427,7 +486,6 @@
                                 <div class="mt-6 pt-4 border-t border-gray-200">
                                     <h4 class="font-semibold mb-2">Company Overview</h4>
                                     <p class="text-sm text-gray-600">${job.company} is a leading player in the **${job.industry}** sector, known for its innovative approach and supportive culture.</p>
-                                    <!-- Tan Accent Link, Dark Blue Hover -->
                                     <a href="#" class="text-[#A68868] text-sm mt-2 block hover:text-[#071739]">View Company Profile &rarr;</a>
                                 </div>
                             </div>
@@ -504,7 +562,6 @@
         function renderDashboard(subPage = 'home') {
             document.getElementById('app-container').innerHTML = `
                 <div class="animate-fade-in grid grid-cols-1 lg:grid-cols-4 gap-8">
-                    <!-- Dashboard Sidebar -->
                     <div class="lg:col-span-1 glass-card p-6 rounded-xl shadow-lg h-min">
                         <div class="text-center mb-6 border-b pb-4">
                             <h3 class="text-xl font-bold text-gray-900">${mockUser.name}</h3>
@@ -515,12 +572,10 @@
                             <a href="#dashboard/requests" class="${subPage === 'requests' ? 'active' : ''}" onclick="navigate('dashboard/requests')"><i data-lucide="mail-check" class="w-5 h-5 mr-2"></i> My Requests</a>
                             <a href="#dashboard/profile" class="${subPage === 'profile' ? 'active' : ''}" onclick="navigate('dashboard/profile')"><i data-lucide="user" class="w-5 h-5 mr-2"></i> My Profile</a>
                             <a href="#dashboard/settings" class="${subPage === 'settings' ? 'active' : ''}" onclick="navigate('dashboard/settings')"><i data-lucide="settings" class="w-5 h-5 mr-2"></i> Settings</a>
-                            <!-- Tan Accent Text for Logout -->
                             <a href="#" onclick="mockLogout()" class="text-[#A68868] hover:text-[#071739] mt-4"><i data-lucide="log-out" class="w-5 h-5 mr-2"></i> Logout</a>
                         </nav>
                     </div>
 
-                    <!-- Dashboard Main Content -->
                     <div class="lg:col-span-3">
                         <h2 class="text-3xl font-bold text-white mb-6">${formatDashboardTitle(subPage)}</h2>
                         <div id="dashboard-content">
@@ -570,7 +625,6 @@
                                                     <span class="status-pill-${req.status} inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full">${req.status}</span>
                                                 </td>
                                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
-                                                    <!-- Tan Accent Link, Dark Blue Hover -->
                                                     <a href="#job/${req.jobId}" class="text-[#A68868] hover:text-[#071739] transition">View Job</a>
                                                 </td>
                                             </tr>
@@ -586,7 +640,6 @@
                         <div class="glass-card p-6 rounded-xl shadow-lg">
                             <h3 class="text-xl font-bold mb-4">Profile Completion: ${mockUser.profileStatus}%</h3>
                             <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
-                                <!-- Dark Blue for completion bar -->
                                 <div class="bg-[#071739] h-2.5 rounded-full" style="width: ${mockUser.profileStatus}%"></div>
                             </div>
                             <p class="text-gray-600 mb-6">Your profile is the resume sent to employers. Keep it updated!</p>
@@ -600,12 +653,10 @@
                             <h4 class="text-lg font-semibold mt-6 mb-3">Resume Upload</h4>
                             <div class="border-2 border-dashed border-gray-300 p-6 rounded-lg text-center">
                                 <input type="file" id="resume-upload" class="hidden" accept=".pdf,.doc,.docx">
-                                <!-- Tan Accent Link, Dark Blue Hover -->
                                 <label for="resume-upload" class="cursor-pointer text-[#A68868] font-medium hover:text-[#071739]">Click to upload your resume (PDF, DOCX)</label>
                                 <p class="text-sm text-gray-500 mt-1">Current File: my-latest-resume.pdf</p>
                             </div>
                             
-                            <!-- Primary Button (uses btn-primary gradient) -->
                             <button class="btn-primary text-white py-3 px-6 rounded-lg font-bold mt-6 hover:bg-[#4B6382] transition" onclick="alertUser('Profile data saved!', 'green')">Save Profile</button>
                         </div>
                     `;
@@ -615,20 +666,15 @@
                             <h3 class="text-xl font-bold mb-4">Notification Preferences</h3>
                             <div class="flex items-center justify-between py-3 border-b">
                                 <span class="text-gray-700">Email updates on Request Status changes</span>
-                                <!-- Tan Accent Checkbox -->
                                 <input type="checkbox" checked class="form-checkbox h-5 w-5 text-[#A68868] rounded">
                             </div>
                             <div class="flex items-center justify-between py-3">
                                 <span class="text-gray-700">Weekly Job Recommendation Digest</span>
-                                <!-- Tan Accent Checkbox -->
                                 <input type="checkbox" class="form-checkbox h-5 w-5 text-[#A68868] rounded">
                             </div>
-                            <!-- Primary Button (uses btn-primary gradient) -->
                             <button class="btn-primary text-white py-3 px-6 rounded-lg font-bold mt-6 hover:bg-[#4B6382] transition" onclick="alertUser('Settings saved!', 'green')">Update Settings</button>
 
-                            <!-- Danger Zone: Tan Accent Text/Button -->
                             <h3 class="text-xl font-bold mt-10 mb-4 text-[#A68868]">Danger Zone</h3>
-                            <!-- Tan Button, Beige/Dark Blue Text Hover -->
                             <button class="bg-[#A68868] text-white py-3 px-6 rounded-lg font-bold hover:bg-[#E3C39D] hover:text-[#071739] transition shadow-md" onclick="confirmDeleteAccount()">Delete Account</button>
                         </div>
                     `;
@@ -637,17 +683,14 @@
                     return `
                         <div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                <!-- Stat 1: Dark Blue -->
                                 <div class="card bg-[#071739] text-white p-6 rounded-xl shadow-md">
                                     <p class="text-sm opacity-75">Requests Sent</p>
                                     <p class="text-4xl font-bold mt-1">${mockRequests.length}</p>
                                 </div>
-                                <!-- Stat 2: Slate Blue -->
                                 <div class="card bg-[#4B6382] text-white p-6 rounded-xl shadow-md">
                                     <p class="text-sm opacity-75">Employers Viewed</p>
                                     <p class="text-4xl font-bold mt-1">${mockRequests.filter(r => r.status === 'Viewed' || r.status === 'Contacting').length}</p>
                                 </div>
-                                <!-- Stat 3: Beige/Light Tan with Dark Blue Text -->
                                 <div class="card bg-[#E3C39D] text-[#071739] p-6 rounded-xl shadow-md">
                                     <p class="text-sm opacity-75">Jobs Saved</p>
                                     <p class="text-4xl font-bold mt-1">12</p>
@@ -655,10 +698,8 @@
                             </div>
 
                             <div class="glass-card p-6 rounded-xl shadow-lg mb-8">
-                                <!-- Action Needed Icon: Tan Accent -->
                                 <h3 class="text-xl font-bold mb-4 flex items-center"><i data-lucide="bell" class="w-5 h-5 mr-2 text-[#A68868]"></i> Action Needed: Profile</h3>
                                 <p class="text-gray-600">Your profile is **${mockUser.profileStatus}% complete**. We recommend completing it to increase your chances of getting contacted.</p>
-                                <!-- Action Button: Beige/Dark Blue Text, Tan Hover/White Text -->
                                 <button onclick="navigate('dashboard/profile')" class="mt-4 bg-[#E3C39D] text-[#071739] px-4 py-2 rounded-lg font-semibold hover:bg-[#A68868] hover:text-white transition shadow-md">Complete Profile</button>
                             </div>
 
@@ -667,7 +708,6 @@
                                 ${mockRequests.length > 0 ? `
                                     <p class="text-gray-700 mb-2">Your latest request (${mockRequests[0].title}) has status:</p>
                                     <span class="status-pill-${mockRequests[0].status} inline-flex items-center px-4 py-2 text-sm font-semibold rounded-full">${mockRequests[0].status}</span>
-                                    <!-- Tan Accent Link, Dark Blue Hover -->
                                     <button onclick="navigate('dashboard/requests')" class="ml-4 text-[#A68868] hover:text-[#071739] font-medium">View All Requests &rarr;</button>
                                 ` : `<p class="text-gray-500">You haven't sent any requests yet. Time to start searching!</p>`}
                             </div>
@@ -688,14 +728,12 @@
 
             document.getElementById('app-container').innerHTML = `
                 <div class="animate-fade-in grid grid-cols-1 lg:grid-cols-4 gap-8">
-                    <!-- Employer Sidebar -->
                     <div class="lg:col-span-1 glass-card p-6 rounded-xl shadow-lg h-min">
                         <div class="text-center mb-6 border-b pb-4">
                             <h3 class="text-xl font-bold text-gray-900">${employerUser.company}</h3>
                             <p class="text-sm text-gray-500">Employer Console</p>
                         </div>
                         <nav class="dashboard-nav">
-                            <!-- Dashboard Navigation using 'employer' prefix -->
                             <a href="#employer/home" class="${subPage === 'home' ? 'active' : ''}" onclick="navigate('employer/home')"><i data-lucide="building" class="w-5 h-5 mr-2"></i> Overview</a>
                             <a href="#employer/requests" class="${subPage === 'requests' ? 'active' : ''}" onclick="navigate('employer/requests')"><i data-lucide="inbox" class="w-5 h-5 mr-2"></i> Incoming Requests</a>
                             <a href="#employer/jobs" class="${subPage === 'jobs' ? 'active' : ''}" onclick="navigate('employer/jobs')"><i data-lucide="list-checks" class="w-5 h-5 mr-2"></i> Manage Job Posts</a>
@@ -704,7 +742,6 @@
                         </nav>
                     </div>
 
-                    <!-- Employer Main Content -->
                     <div class="lg:col-span-3">
                         <h2 class="text-3xl font-bold text-white mb-6">${formatEmployerDashboardTitle(subPage)}</h2>
                         <div id="employer-content">
@@ -774,9 +811,7 @@
                                                     <span class="status-pill-${req.status} inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full">${req.status}</span>
                                                 </td>
                                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                                    <!-- Dark Blue Button (View/Viewed) -->
                                                     <button class="bg-[#071739] text-white px-3 py-1 text-xs rounded-full hover:bg-[#4B6382] transition" onclick="updateRequestStatus(${req.id}, 'Viewed')">View Resume</button>
-                                                    <!-- Tan Button (Contacting) -->
                                                     <button class="bg-[#A68868] text-white px-3 py-1 text-xs rounded-full hover:bg-[#E3C39D] hover:text-[#071739] transition" onclick="updateRequestStatus(${req.id}, 'Contacting')">Contact</button>
                                                 </td>
                                             </tr>
@@ -807,7 +842,6 @@
                                         </div>
                                         <div class="flex items-center space-x-3">
                                             <span class="text-gray-700 font-medium">${mockEmployerRequests.filter(r => r.jobId === job.id).length} Requests</span>
-                                            <!-- Tan Accent Link -->
                                             <a href="#job/${job.id}" class="text-[#A68868] hover:text-[#071739] font-medium transition">View Listing</a>
                                         </div>
                                     </div>
@@ -825,7 +859,6 @@
                             </div>
                             <textarea placeholder="Company Description" rows="4" class="w-full p-3 border border-gray-300 rounded-lg mt-6">TechNova Solutions is a global IT consultancy specializing in cloud infrastructure and modern web development.</textarea>
                             
-                            <!-- Primary Button -->
                             <button class="btn-primary text-white py-3 px-6 rounded-lg font-bold mt-6 hover:bg-[#4B6382] transition" onclick="alertUser('Company details saved!', 'green')">Save Details</button>
                         </div>
                     `;
@@ -834,17 +867,14 @@
                     return `
                         <div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                <!-- Stat 1: Dark Blue -->
                                 <div class="card bg-[#071739] text-white p-6 rounded-xl shadow-md">
                                     <p class="text-sm opacity-75">Total Requests</p>
                                     <p class="text-4xl font-bold mt-1">${employerUser.totalRequests}</p>
                                 </div>
-                                <!-- Stat 2: Slate Blue -->
                                 <div class="card bg-[#4B6382] text-white p-6 rounded-xl shadow-md">
                                     <p class="text-sm opacity-75">New Candidates (Pending)</p>
                                     <p class="text-4xl font-bold mt-1">${employerUser.newRequests}</p>
                                 </div>
-                                <!-- Stat 3: Beige/Light Tan with Dark Blue Text -->
                                 <div class="card bg-[#E3C39D] text-[#071739] p-6 rounded-xl shadow-md">
                                     <p class="text-sm opacity-75">Interviewing</p>
                                     <p class="text-4xl font-bold mt-1">${employerUser.interviewing}</p>
@@ -852,17 +882,14 @@
                             </div>
 
                             <div class="glass-card p-6 rounded-xl shadow-lg mb-8">
-                                <!-- Action Needed Icon: Tan Accent -->
                                 <h3 class="text-xl font-bold mb-4 flex items-center"><i data-lucide="inbox" class="w-5 h-5 mr-2 text-[#A68868]"></i> Unreviewed Requests</h3>
                                 <p class="text-gray-600">You have **${employerUser.newRequests} new requests** across your active job posts. Review them now to find your next hire!</p>
-                                <!-- Action Button: Primary Gradient -->
                                 <button onclick="navigate('employer/requests')" class="mt-4 btn-primary text-white px-4 py-2 rounded-lg font-semibold transition shadow-md">Review Candidates &rarr;</button>
                             </div>
                             
                             <h3 class="text-2xl font-bold text-white mb-4">Job Posting Summary</h3>
                             <div class="glass-card p-6 rounded-xl shadow-lg">
                                 <p class="text-gray-700 mb-2">You currently have **${employerUser.postedJobs} active job listings**.</p>
-                                <!-- Tan Accent Link -->
                                 <button onclick="navigate('employer/jobs')" class="ml-4 text-[#A68868] hover:text-[#071739] font-medium">Manage Job Posts &rarr;</button>
                             </div>
                         </div>
